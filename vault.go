@@ -12,14 +12,14 @@ type vaulter interface {
 	EditFile(file, content string) error
 }
 
-type vault struct {
+type fileVault struct {
 }
 
-func NewVault() vault {
-	return vault{}
+func NewVault() fileVault {
+	return fileVault{}
 }
 
-func (v vault) AllFiles() ([]string, error) {
+func (v fileVault) AllFiles() ([]string, error) {
 	files, err := os.ReadDir("./vault")
 	if err != nil {
 		return []string{}, err
@@ -34,18 +34,18 @@ func (v vault) AllFiles() ([]string, error) {
 	return res, nil
 }
 
-func (v vault) FileContent(fileName string) (string, error) {
+func (v fileVault) FileContent(fileName string) (string, error) {
 	fileName = string(fmt.Sprintf("./vault/%s", fileName))
 
 	content, err := os.ReadFile(fileName)
 	return string(content), err
 }
 
-func (v vault) FileLinks(file string) ([]string, error) {
+func (v fileVault) FileLinks(file string) ([]string, error) {
 	panic("not implemented") // TODO: Implement
 }
 
-func (v vault) EditFile(fileName string, content string) error {
+func (v fileVault) EditFile(fileName string, content string) error {
 	fileName = string(fmt.Sprintf("./vault/%s", fileName))
 
 	file, err := os.OpenFile(fileName, os.O_WRONLY, 0666)
