@@ -1,0 +1,1 @@
+In OOP you control the flow of how data is processed AND how data is stored by creating objects with methods, so they know themselves how to process operations on them (their state) and how to store that state
