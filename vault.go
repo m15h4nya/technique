@@ -5,6 +5,8 @@ import (
 	"os"
 )
 
+var _ vaulter = fileVault{}
+
 type vaulter interface {
 	AllFiles() ([]string, error)
 	FileContent(file string) (string, error)
@@ -49,10 +51,12 @@ func (v fileVault) EditFile(fileName string, content string) error {
 	fileName = string(fmt.Sprintf("./vault/%s", fileName))
 
 	file, err := os.OpenFile(fileName, os.O_WRONLY, 0666)
-	defer file.Close()
 	if err != nil {
 		return err
 	}
+	defer func() {
+		err = file.Close()
+	}()
 
 	_, err = file.Write([]byte(content))
 	if err != nil {

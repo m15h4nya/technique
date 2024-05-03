@@ -13,13 +13,12 @@ func NewServer() http.Server {
 	}
 }
 
-func router(handler Handler) *mux.Router {
+func router(handler Handle) *mux.Router {
 	r := mux.NewRouter()
 
 	getHandler := r.Methods(http.MethodGet).Subrouter()
 	getHandler.HandleFunc("/api/all_files", handler.AllFiles)
 	getHandler.HandleFunc("/api/file/{filename}", handler.FileContent)
-	getHandler.HandleFunc("/api/file/{filename}/links", handler.FileLinks)
 
 	postHandler := r.Methods(http.MethodPost).Subrouter()
 	postHandler.HandleFunc("/api/file/{filename}", handler.EditFile)

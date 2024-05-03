@@ -7,10 +7,11 @@ import (
 	"github.com/gorilla/mux"
 )
 
+var _ Handler = Handle{}
+
 type Handler interface {
 	AllFiles(w http.ResponseWriter, r *http.Request)
 	FileContent(w http.ResponseWriter, r *http.Request)
-	FileLinks(w http.ResponseWriter, r *http.Request)
 	EditFile(w http.ResponseWriter, r *http.Request)
 }
 
@@ -18,7 +19,7 @@ type Handle struct {
 	vault vaulter
 }
 
-func NewHandler() Handler {
+func NewHandler() Handle {
 	return Handle{
 		vault: NewVault(),
 	}
@@ -47,10 +48,6 @@ func (h Handle) FileContent(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprint(w, content)
 }
 
-func (h Handle) FileLinks(w http.ResponseWriter, r *http.Request) {
-	panic("not implemented") // TODO: Implement
-}
-
 func (h Handle) EditFile(w http.ResponseWriter, r *http.Request) {
-	panic("not implemented") // TODO: Implement
+	fmt.Fprint(w, "Edit is not possible yet")
 }
