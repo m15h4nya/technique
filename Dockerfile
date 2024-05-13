@@ -11,6 +11,7 @@ FROM debian:buster-slim
 
 RUN mkdir -p /opt/vault
 COPY --from=build /vault/app /opt/vault/app
+COPY --from=build /vault/vault /opt/vault/vault
 
 WORKDIR /opt/vault
 CMD ["./app"]

@@ -49,6 +49,7 @@ func (h Handle) AllFiles(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Println(err)
 		writeMarshal(w, nil, http.StatusInternalServerError)
+		return
 	}
 
 	writeMarshal(w, content, http.StatusOK)
@@ -67,6 +68,7 @@ func (h Handle) FileContent(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Println(err)
 		writeMarshal(w, nil, http.StatusInternalServerError)
+		return
 	}
 
 	writeMarshal(w, content, http.StatusOK)
