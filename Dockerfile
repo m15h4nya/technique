@@ -1,7 +1,11 @@
 FROM golang:1.21.0-alpine as build
 
 COPY . /vault
-RUN cd /vault && go build -o app .
+WORKDIR /vault
+
+RUN go install github.com/swaggo/swag/cmd/swag@latest && swag init -g server.go
+
+RUN go build -o app .
 
 FROM debian:buster-slim
 
