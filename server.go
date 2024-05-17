@@ -20,6 +20,7 @@ func NewServer() http.Server {
 
 func router(handler Handle) *mux.Router {
 	r := mux.NewRouter()
+	r.Use(CorsMiddlware)
 
 	getHandler := r.Methods(http.MethodGet).Subrouter()
 	getHandler.HandleFunc("/api/all_files", handler.AllFiles)
